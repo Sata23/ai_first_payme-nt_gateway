@@ -1,0 +1,75 @@
+
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.055);
+      color: var(--text);
+      text-decoration: none;
+      transition: 160ms ease;
+    }
+    .offer:hover, .merchant-link:hover { transform: translateY(-2px); border-color: rgba(87,242,189,0.4); }
+    .offer-icon {
+      width: 48px;
+      height: 48px;
+    th, td { padding: 11px; border-bottom: 1px solid var(--line); text-align: left; font-size: 13px; }
+    th { color: #bdefff; text-transform: uppercase; font-size: 11px; }
+    .table-wrap { overflow-x: auto; }
+    .merchant-link { color: var(--text); text-decoration: none; font-weight: 800; }
+    @media (max-width: 980px) {
+      .shell { grid-template-columns: 1fr; padding: 10px; }
+      .phone { position: relative; top: 0; height: auto; min-height: 780px; max-width: 430px; margin: 0 auto; }
+  <script>
+    const screens = [["home","⌂","Home"],["pay","⌁","Pay"],["rewards","◆","Rewards"],["market","▦","Offers"],["ai","✦","AI"]];
+    const offers = [
+      ["BookMyShow", "Movies", "Buy 1 Get 1 + 5% cashback", 94, "B1"],
+      ["Zomato", "Dining", "8% cashback + weekend boost", 88, "ZO"],
+      ["Myntra", "Shopping", "Flat 10% cashback", 82, "MY"],
+      ["FlightsPro", "Flights", "5% cashback + card miles", 76, "FP"],
+      ["CarePlus", "Healthcare", "5% cashback on diagnostics", 69, "CP"],
+      ["HotelHub", "Hotels", "10% cashback on stays", 91, "HH"]
+      ["BookMyShow", "Movies", "Buy 1 Get 1 + 5% cashback", 94, "B1", "https://in.bookmyshow.com/"],
+      ["Zomato", "Dining", "8% cashback + weekend boost", 88, "ZO", "https://www.zomato.com/"],
+      ["Myntra", "Shopping", "Flat 10% cashback", 82, "MY", "https://www.myntra.com/"],
+      ["Amazon India", "Shopping", "Up to 15% cashback", 78, "AZ", "https://www.amazon.in/"],
+      ["Flipkart", "Shopping", "10% cashback", 76, "FK", "https://www.flipkart.com/"],
+      ["Nykaa", "Shopping", "10% beauty cashback", 73, "NY", "https://www.nykaa.com/"],
+      ["Swiggy", "Dining", "8% cashback", 88, "SW", "https://www.swiggy.com/"],
+      ["FlightsPro", "Flights", "5% cashback + card miles", 76, "FP", "https://www.cleartrip.com/"],
+      ["CarePlus", "Healthcare", "5% cashback on diagnostics", 69, "CP", "https://www.1mg.com/"],
+      ["HotelHub", "Hotels", "10% cashback on stays", 91, "HH", "https://www.makemytrip.com/hotels/"]
+    ];
+    const cards = [
+      ["Sapphire Dining Card", "Dining", "₹18,400 annual reward", "Pre-approved"],
+      ["Student Secure Card", "Education", "₹6,200 annual reward", "KYC needed"]
+    ];
+    const merchants = [
+      ["BookMyShow", "Movies", "BOGO tickets", "Push Friday cinema campaign", "Low"],
+      ["Zomato", "Dining", "8% cashback", "Target high-frequency diners", "Low"],
+      ["FuelFast", "Fuel", "2% cashback cap", "Reduce abuse via monthly limit", "Medium"],
+      ["Ajio", "Shopping", "12% cashback", "Bundle with fashion card offer", "Low"],
+      ["EduPay", "Education", "5% cashback", "Promote EMI + rewards", "Medium"]
+      ["BookMyShow", "Movies", "BOGO tickets", "Push Friday cinema campaign", "Low", "https://in.bookmyshow.com/"],
+      ["Zomato", "Dining", "8% cashback", "Target high-frequency diners", "Low", "https://www.zomato.com/"],
+      ["Swiggy", "Dining", "8% cashback", "Launch lunch-hour app push", "Low", "https://www.swiggy.com/"],
+      ["Flipkart", "Shopping", "10% cashback", "Cross-sell shopping card", "Low", "https://www.flipkart.com/"],
+      ["Ajio", "Shopping", "12% cashback", "Bundle with fashion card offer", "Low", "https://www.ajio.com/"],
+      ["Nykaa", "Shopping", "10% cashback", "Beauty festival campaign", "Low", "https://www.nykaa.com/"],
+      ["EduPay", "Education", "5% cashback", "Promote EMI + rewards", "Medium", "https://www.coursera.org/"]
+    ];
+    const cashbackTiers = [[100,20],[500,100],[1000,200],[2000,300],[5000,500],[10000,1000],[25000,2000],[50000,4000],[100000,7500],[250000,10000]];
+    const $ = q => document.querySelector(q);
+    const $$ = q => [...document.querySelectorAll(q)];
+    function setScreen(id){ $$(".screen").forEach(s=>s.classList.toggle("active",s.id===id)); $$("[data-screen],.tab").forEach(b=>b.classList.toggle("active",b.dataset.screen===id)); }
+    function rewardFor(amount){ return cashbackTiers.reduce((best,t)=> amount>=t[0] ? t[1] : best, 0); }
+    function offerRow(o){ return `<div class="offer"><div class="offer-icon">${o[4]}</div><div><b>${o[0]}</b><br><small>${o[1]} · ${o[2]}</small></div><span class="status ok">${o[3]}%</span></div>`; }
+    function offerRow(o){ return `<a class="offer" href="${o[5]}" target="_blank" rel="noopener noreferrer" aria-label="Open ${o[0]} offer"><div class="offer-icon">${o[4]}</div><div><b>${o[0]}</b><br><small>${o[1]} · ${o[2]}</small></div><span class="status ok">${o[3]}%</span></a>`; }
+    function bar(label,val){ return `<div class="bar"><span>${label}</span><div class="track"><span style="width:${val}%"></span></div><b>${val}%</b></div>`; }
+    function render(){
+      $("#tabs").innerHTML = screens.map(s=>`<button class="tab ${s[0]==="home"?"active":""}" data-screen="${s[0]}"><b>${s[1]}</b>${s[2]}</button>`).join("");
+      $("#chat").innerHTML = `<div class="bubble">Ask me which payment mode, card, or offer gives the highest reward before you pay.</div><div class="bubble user">Which card should I use for dining?</div><div class="bubble">Use Sapphire Dining Card. You get 10% dining cashback plus 3x points. Estimated reward on ₹2,500 is ₹300.</div>`;
+      $("#marketingBars").innerHTML = ["Dining retargeting","Movie weekend campaign","Card cross-sell","Referral boost","Festival cashback"].map((x,i)=>bar(x,[92,88,81,74,69][i])).join("");
+      $("#salesBars").innerHTML = ["Credit card leads","Premium users","Merchant upsell","BNPL eligibility","Affiliate purchase"].map((x,i)=>bar(x,[86,78,72,66,61][i])).join("");
+      $("#merchantRows").innerHTML = merchants.map(m=>`<tr><td>${m[0]}</td><td>${m[1]}</td><td>${m[2]}</td><td>${m[3]}</td><td><span class="status ${m[4]==="Low"?"ok":"warn"}">${m[4]}</span></td></tr>`).join("");
+      $("#merchantRows").innerHTML = merchants.map(m=>`<tr><td><a class="merchant-link" href="${m[5]}" target="_blank" rel="noopener noreferrer">${m[0]}</a></td><td>${m[1]}</td><td>${m[2]}</td><td>${m[3]}</td><td><span class="status ${m[4]==="Low"?"ok":"warn"}">${m[4]}</span></td></tr>`).join("");
+      updateRewardPreview();
+    }
+    function upiLink(){
