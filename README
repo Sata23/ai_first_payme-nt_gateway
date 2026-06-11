@@ -1,0 +1,45 @@
+# RewardIQ Pay
+
+AI-first mobile payment gateway and rewards platform prototype.
+
+## What This Includes
+
+- UPI payment simulation with test UPI ID
+- Cashback calculator
+- AI spend optimizer
+- Rewards dashboard
+- Marketplace offers
+- Public partner links
+- Credit card recommendation engine
+- AI financial concierge
+- Fraud/risk metrics
+- Merchant sales and marketing dashboard
+
+## GitHub Pages Setup
+
+Upload these files to the root of a GitHub repository:
+
+```text
+index.html
+README.md
+.nojekyll
+```
+
+Then enable GitHub Pages:
+
+1. Go to repository `Settings`
+2. Open `Pages`
+3. Source: `Deploy from a branch`
+4. Branch: `main`
+5. Folder: `/root`
+6. Save
+
+Your public app URL will look like:
+
+```text
+https://YOUR-USERNAME.github.io/YOUR-REPO-NAME/
+```
+
+## Important
+
+This is a prototype. It does not process real payments. Do not place private API keys, payment credentials, customer data, or production secrets in this static repo.
